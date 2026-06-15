@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface Address {
   label: string;
@@ -31,33 +32,40 @@ interface UserStore {
   updatePaymentMethod: (paymentMethod: PaymentMethod) => void;
 }
 
-export const useUserStore = create<UserStore>((set) => ({
-  name: 'Priya Sharma',
-  address: {
-    label: 'Home',
-    street: '42 MG Road, Koramangala',
-    city: 'Bangalore',
-    pincode: '560034',
-  },
-  paymentMethod: {
-    type: 'upi',
-    label: 'UPI',
-    details: 'priya@paytm',
-  },
-  preferences: {
-    dietary: [],
-    householdSize: 2,
-  },
-  location: null,
-  locationLabel: '',
+export const useUserStore = create<UserStore>()(
+  persist(
+    (set) => ({
+      name: 'Priya Sharma',
+      address: {
+        label: 'Home',
+        street: '42 MG Road, Koramangala',
+        city: 'Bangalore',
+        pincode: '560034',
+      },
+      paymentMethod: {
+        type: 'upi',
+        label: 'UPI',
+        details: 'priya@paytm',
+      },
+      preferences: {
+        dietary: [],
+        householdSize: 2,
+      },
+      location: { lat: 12.9352, lng: 77.6245 },
+      locationLabel: 'Koramangala, Bangalore',
 
-  setLocation: (lat, lng, label) =>
-    set({ location: { lat, lng }, locationLabel: label }),
+      setLocation: (lat, lng, label) =>
+        set({ location: { lat, lng }, locationLabel: label }),
 
-  updatePreferences: (dietary, householdSize) =>
-    set({ preferences: { dietary, householdSize } }),
+      updatePreferences: (dietary, householdSize) =>
+        set({ preferences: { dietary, householdSize } }),
 
-  updateAddress: (address) => set({ address }),
+      updateAddress: (address) => set({ address }),
 
-  updatePaymentMethod: (paymentMethod) => set({ paymentMethod }),
-}));
+      updatePaymentMethod: (paymentMethod) => set({ paymentMethod }),
+    }),
+    {
+      name: 'urgentcart-user',
+    }
+  )
+);

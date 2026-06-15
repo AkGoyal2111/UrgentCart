@@ -32,7 +32,8 @@ export function PastOrderCard({ order }: PastOrderCardProps) {
   const router = useRouter();
   const setPendingCart = useCartStore((state) => state.setPendingCart);
   const incrementReorder = useOrderStore((state) => state.incrementReorder);
-  const reorderCount = useOrderStore((state) => state.getReorderCount(order.id));
+  const reorderCounts = useOrderStore((state) => state.reorderCounts);
+  const reorderCount = reorderCounts[order.id] || 0;
 
   const emoji = getSituationEmoji(order.situationLabel);
   const itemCount = order.items.length;
