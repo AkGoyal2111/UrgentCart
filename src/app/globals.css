@@ -39,6 +39,8 @@
   --color-amazon-orange: var(--color-amazon-orange);
   --color-amazon-dark: var(--color-amazon-dark);
   --color-amazon-light: var(--color-amazon-light);
+  --color-amazon-yellow: var(--color-amazon-yellow);
+  --color-amazon-navy: var(--color-amazon-navy);
   --color-emergency-red: var(--color-emergency-red);
   --color-success-green: var(--color-success-green);
   --radius-sm: calc(var(--radius) - 4px);
@@ -50,79 +52,46 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(0.985 0.002 90);
-  --foreground: oklch(0.145 0.01 30);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0.01 30);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0.01 30);
-  --primary: oklch(0.55 0.17 55);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.97 0.005 90);
-  --secondary-foreground: oklch(0.2 0.02 30);
-  --muted: oklch(0.96 0.005 90);
-  --muted-foreground: oklch(0.5 0.01 30);
-  --accent: oklch(0.55 0.17 55);
-  --accent-foreground: oklch(1 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.9 0.01 90);
-  --input: oklch(0.9 0.01 90);
-  --ring: oklch(0.55 0.17 55);
-  --chart-1: oklch(0.55 0.17 55);
-  --chart-2: oklch(0.6 0.118 184.714);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.2 0.05 200);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.55 0.17 55);
-  --color-amazon-orange: oklch(0.75 0.16 55);
-  --color-amazon-dark: oklch(0.2 0.05 200);
-  --color-amazon-light: oklch(0.97 0.01 90);
-  --color-emergency-red: oklch(0.6 0.22 25);
-  --color-success-green: oklch(0.6 0.15 145);
-}
-
-.dark {
-  --background: oklch(0.16 0.02 200);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.2 0.02 200);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.2 0.02 200);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.75 0.16 55);
-  --primary-foreground: oklch(0.15 0.02 200);
-  --secondary: oklch(0.25 0.02 200);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.25 0.02 200);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.75 0.16 55);
-  --accent-foreground: oklch(0.15 0.02 200);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.3 0.02 200);
-  --input: oklch(0.3 0.02 200);
-  --ring: oklch(0.75 0.16 55);
-  --chart-1: oklch(0.75 0.16 55);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.18 0.02 200);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.75 0.16 55);
-  --sidebar-primary-foreground: oklch(0.15 0.02 200);
-  --sidebar-accent: oklch(0.25 0.02 200);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.3 0.02 200);
-  --sidebar-ring: oklch(0.75 0.16 55);
+  --radius: 0.5rem;
+  --background: #ffffff;
+  --foreground: #0f1111;
+  --card: #ffffff;
+  --card-foreground: #0f1111;
+  --popover: #ffffff;
+  --popover-foreground: #0f1111;
+  --primary: #131921;
+  --primary-foreground: #ffffff;
+  --secondary: #f7f8f8;
+  --secondary-foreground: #0f1111;
+  --muted: #f7f8f8;
+  --muted-foreground: #565959;
+  --accent: #ff9900;
+  --accent-foreground: #ffffff;
+  --destructive: #cc0c39;
+  --destructive-foreground: #cc0c39;
+  --border: #d5d9d9;
+  --input: #d5d9d9;
+  --ring: #ff9900;
+  --chart-1: #ff9900;
+  --chart-2: #146eb4;
+  --chart-3: #232f3e;
+  --chart-4: #febd69;
+  --chart-5: #37475a;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0f1111;
+  --sidebar-primary: #131921;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f7f8f8;
+  --sidebar-accent-foreground: #0f1111;
+  --sidebar-border: #d5d9d9;
+  --sidebar-ring: #ff9900;
+  --color-amazon-orange: #ff9900;
+  --color-amazon-dark: #131921;
+  --color-amazon-light: #f7f8f8;
+  --color-amazon-yellow: #ffd814;
+  --color-amazon-navy: #232f3e;
+  --color-emergency-red: #cc0c39;
+  --color-success-green: #007600;
 }
 
 @layer base {
@@ -131,107 +100,49 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+    font-family: var(--font-sans), "Amazon Ember", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
 }
 
 /* Animations */
 @keyframes bounce-once {
-  0% {
-    transform: scale(0.3);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-  70% {
-    transform: scale(0.9);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.1); opacity: 1; }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-@keyframes confetti {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh) rotate(720deg);
-    opacity: 0;
-  }
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 @keyframes gentlePulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.85;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
 }
 
-.animate-bounce-once {
-  animation: bounce-once 0.6s ease-out;
-}
-
-.animate-fade-in-up {
-  animation: fadeInUp 0.4s ease-out;
-}
-
-.animate-scale-in {
-  animation: scaleIn 0.3s ease-out;
-}
-
-.animate-slide-in-right {
-  animation: slideInRight 0.3s ease-out;
-}
+.animate-bounce-once { animation: bounce-once 0.6s ease-out; }
+.animate-fade-in-up { animation: fadeInUp 0.4s ease-out; }
+.animate-scale-in { animation: scaleIn 0.3s ease-out; }
+.animate-slide-in-right { animation: slideInRight 0.3s ease-out; }
+.animate-gentle-pulse { animation: gentlePulse 2s ease-in-out infinite; }
 
 .animate-shimmer {
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
@@ -239,19 +150,39 @@
   animation: shimmer 1.5s infinite;
 }
 
-.animate-confetti {
-  animation: confetti 3s ease-out forwards;
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Amazon-style button hover */
+.btn-amazon {
+  background: linear-gradient(to bottom, #f7dfa5, #f0c14b);
+  border: 1px solid #a88734;
+  color: #111;
+  border-radius: 3px;
+}
+.btn-amazon:hover {
+  background: linear-gradient(to bottom, #f5d78e, #eeb933);
 }
 
-.animate-gentle-pulse {
-  animation: gentlePulse 2s ease-in-out infinite;
+/* Amazon yellow button */
+.btn-amazon-yellow {
+  background: #ffd814;
+  border: 1px solid #fcd200;
+  color: #0f1111;
+  border-radius: 8px;
+}
+.btn-amazon-yellow:hover {
+  background: #f7ca00;
 }
 
-/* Hide scrollbar for demo presets */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+/* Amazon orange button */
+.btn-amazon-orange {
+  background: #ffa41c;
+  border: 1px solid #ff8f00;
+  color: #0f1111;
+  border-radius: 8px;
 }
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.btn-amazon-orange:hover {
+  background: #fa8900;
 }

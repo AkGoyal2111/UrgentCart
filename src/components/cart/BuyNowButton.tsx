@@ -1,8 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { ShoppingCart } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { useCartStore } from '@/stores/cartStore';
 import { useUserStore } from '@/stores/userStore';
 
@@ -10,7 +8,6 @@ export function BuyNowButton() {
   const router = useRouter();
   const items = useCartStore((state) => state.items);
   const address = useUserStore((state) => state.address);
-  const paymentMethod = useUserStore((state) => state.paymentMethod);
 
   const isDisabled = items.length === 0;
 
@@ -19,25 +16,19 @@ export function BuyNowButton() {
   };
 
   return (
-    <div className="space-y-2">
-      <Button
+    <div className="space-y-3">
+      <button
         onClick={handleBuyNow}
         disabled={isDisabled}
-        className="w-full h-12 bg-amazon-orange hover:bg-amazon-orange/90 text-white font-bold text-base rounded-xl shadow-md disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] transition-transform"
+        className="w-full h-10 btn-amazon-yellow font-semibold text-sm rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:brightness-[0.97] transition-all"
       >
-        <ShoppingCart className="h-5 w-5" />
         Proceed to Checkout
-      </Button>
+      </button>
 
       {!isDisabled && (
-        <div className="text-center space-y-0.5">
-          <p className="text-xs text-gray-500">
-            📍 {address.street}, {address.city}
-          </p>
-          <p className="text-xs text-gray-500">
-            💳 {paymentMethod.label} • {paymentMethod.details}
-          </p>
-        </div>
+        <p className="text-xs text-[#565959] text-center">
+          📍 Delivering to {address.street}, {address.city}
+        </p>
       )}
     </div>
   );

@@ -14,28 +14,31 @@ export function CartSummary() {
   const grandTotal = total + DELIVERY_FEE;
 
   return (
-    <div className="bg-gray-50 rounded-xl p-4 space-y-2.5">
-      <div className="flex justify-between text-sm text-gray-600">
-        <span>Subtotal ({items.length} items)</span>
-        <span>₹{total.toLocaleString('en-IN')}</span>
-      </div>
-
-      <div className="flex justify-between text-sm text-gray-600">
-        <span>Delivery Fee</span>
-        <span>₹{DELIVERY_FEE}</span>
-      </div>
-
-      <div className="border-t border-gray-200 pt-2.5 flex justify-between text-base font-bold text-gray-900">
-        <span>Total</span>
-        <span>₹{grandTotal.toLocaleString('en-IN')}</span>
-      </div>
-
+    <div className="space-y-3">
       {deliveryEstimate > 0 && (
-        <div className="flex items-center gap-1.5 text-xs text-green-700 bg-green-50 rounded-lg px-3 py-1.5 mt-1">
-          <span>⚡</span>
-          <span>Estimated delivery in {deliveryEstimate} minutes</span>
+        <div className="flex items-center gap-1.5 text-xs text-[#007600] font-medium">
+          <span>✓</span>
+          <span>Delivery in {deliveryEstimate} minutes</span>
         </div>
       )}
+
+      <div className="space-y-2 text-sm">
+        <div className="flex justify-between text-[#565959]">
+          <span>Items ({items.length}):</span>
+          <span>₹{total.toLocaleString('en-IN')}</span>
+        </div>
+        <div className="flex justify-between text-[#565959]">
+          <span>Delivery:</span>
+          <span>₹{DELIVERY_FEE}</span>
+        </div>
+      </div>
+
+      <div className="border-t border-[#d5d9d9] pt-3">
+        <div className="flex justify-between">
+          <span className="text-lg font-bold text-[#0f1111]">Order Total:</span>
+          <span className="text-lg font-bold text-[#0f1111]">₹{grandTotal.toLocaleString('en-IN')}</span>
+        </div>
+      </div>
     </div>
   );
 }

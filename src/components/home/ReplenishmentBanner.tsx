@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { RefreshCw, X } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 import { useOrderStore } from '@/stores/orderStore';
 import { useCartStore } from '@/stores/cartStore';
 import { CartItem } from '@/types';
@@ -15,7 +15,6 @@ export function ReplenishmentBanner() {
   const replenishmentItems = useMemo(() => {
     if (pastOrders.length < 3) return [];
 
-    // Count item frequency across orders
     const itemFrequency: Record<string, { item: CartItem; count: number }> = {};
 
     for (const order of pastOrders) {
@@ -28,7 +27,6 @@ export function ReplenishmentBanner() {
       }
     }
 
-    // Items that appear in 2+ orders are candidates for replenishment
     return Object.values(itemFrequency)
       .filter((entry) => entry.count >= 2)
       .sort((a, b) => b.count - a.count)
@@ -40,57 +38,45 @@ export function ReplenishmentBanner() {
 
   function handleReorder(item: CartItem) {
     addItem({ ...item, quantity: 1, reason: 'Replenishment suggestion' });
-    // Use item.id as the key for per-item reorder count (persisted)
     incrementReorder(`item_${item.id}`);
   }
 
   return (
-    <section className="w-full animate-fade-in-up">
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-xl p-4">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <RefreshCw className="h-4 w-4 text-blue-600" />
-            <h3 className="text-sm font-semibold text-gray-900">
-              Reorder
-            </h3>
-          </div>
-        </div>
+    <section className="w-full bg-white rounded-lg shadow-sm border border-[#d5d9d9] p-4">
+      <div className="flex items-center gap-2 mb-3">
+        <RefreshCw className="h-4 w-4 text-[#007185]" />
+        <h2 className="text-base font-bold text-[#0f1111]">Buy it again</h2>
+      </div>
 
-        <p className="text-xs text-gray-600 mb-3">
-          Based on your order history, you might need these again:
-        </p>
-
-        {/* Items */}
-        <div className="space-y-2">
-          {replenishmentItems.map((item) => {
-            const count = reorderCounts[`item_${item.id}`] || 0;
-            return (
-              <div
-                key={item.id}
-                className="flex items-center justify-between bg-white rounded-lg px-3 py-2 shadow-sm"
-              >
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 truncate">
-                    {item.name}
-                  </p>
-                  <p className="text-xs text-gray-500">₹{item.price}</p>
-                </div>
-                <button
-                  onClick={() => handleReorder(item)}
-                  className="ml-3 flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full bg-amazon-orange text-white hover:bg-amazon-orange/90 transition-colors"
-                >
-                  Reorder
-                  {count > 0 && (
-                    <span className="flex h-4 w-4 items-center justify-center rounded-full bg-white/30 text-[10px] font-bold">
-                      {count}
-                    </span>
-                  )}
-                </button>
+      <div className="flex gap-3 overflow-x-auto pb-1 no-scrollbar">
+        {replenishmentItems.map((item) => {
+          const count = reorderCounts[`item_${item.id}`] || 0;
+          return (
+            <div
+              key={item.id}
+              className="flex-shrink-0 w-[140px] border border-[#d5d9d9] rounded-lg p-3 bg-white hover:shadow-md transition-shadow"
+            >
+              <div className="w-full h-16 bg-[#f7f8f8] rounded flex items-center justify-center mb-2">
+                <span className="text-2xl">📦</span>
               </div>
-            );
-          })}
-        </div>
+              <p className="text-xs font-medium text-[#0f1111] line-clamp-2 leading-tight mb-1">
+                {item.name}
+              </p>
+              <p className="text-sm font-bold text-[#0f1111] mb-2">₹{item.price}</p>
+              <button
+                onClick={() => handleReorder(item)}
+                className="w-full flex items-center justify-center gap-1 py-1.5 text-xs font-medium rounded-md btn-amazon-yellow transition-colors"
+              >
+                Add to Cart
+                {count > 0 && (
+                  <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#131921] text-[9px] font-bold text-white">
+                    {count}
+                  </span>
+                )}
+              </button>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

@@ -4,52 +4,46 @@ import Link from "next/link";
 import emergencies from "@/data/emergencies.json";
 
 export function EmergencyQuickActions() {
-  // Show only the first 3 emergencies
-  const topEmergencies = emergencies.slice(0, 3);
+  const topEmergencies = emergencies.slice(0, 4);
 
   return (
     <section className="w-full">
-      <h2 className="text-lg font-bold text-foreground mb-3 px-1">
-        🔥 Quick Emergencies
-      </h2>
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-lg font-bold text-[#0f1111]">
+          Emergency Kits
+        </h2>
+        <Link href="/emergency" className="text-xs font-medium text-[#007185] hover:text-[#c45500] hover:underline">
+          See all →
+        </Link>
+      </div>
 
-      <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {topEmergencies.map((emergency) => (
           <Link
             key={emergency.id}
             href={`/emergency/${emergency.id}`}
-            className="group flex-shrink-0 snap-start w-[260px] sm:w-[280px]"
+            className="group rounded-lg border border-[#d5d9d9] bg-white p-3 hover:shadow-md hover:border-[#cc0c39]/30 transition-all"
           >
-            <div className="h-full rounded-xl border border-red-100 bg-gradient-to-br from-white to-red-50 p-4 shadow-sm hover:shadow-md hover:border-emergency-red/30 hover:-translate-y-1 active:scale-[0.97] transition-all animate-gentle-pulse">
-              {/* Icon and title */}
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-3xl" role="img" aria-label={emergency.title}>
-                  {emergency.icon}
-                </span>
-                <div>
-                  <h3 className="font-semibold text-foreground group-hover:text-emergency-red transition-colors">
-                    {emergency.title}
-                  </h3>
-                  <span className="text-xs text-muted-foreground">
-                    {emergency.itemCount} items ready
-                  </span>
-                </div>
-              </div>
-
-              {/* Description */}
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {emergency.description}
-              </p>
-
-              {/* Badges */}
-              <div className="mt-3 flex items-center justify-between">
-                <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full">
-                  ⚡ Instant delivery
-                </span>
-                <span className="text-xs font-medium text-emergency-red opacity-0 group-hover:opacity-100 transition-opacity">
-                  Tap to get cart →
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-2xl" role="img" aria-label={emergency.title}>
+                {emergency.icon}
+              </span>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-semibold text-sm text-[#0f1111] group-hover:text-[#c45500] transition-colors truncate">
+                  {emergency.title}
+                </h3>
+                <span className="text-[10px] text-[#565959]">
+                  {emergency.itemCount} items
                 </span>
               </div>
+            </div>
+            <p className="text-xs text-[#565959] leading-relaxed line-clamp-2">
+              {emergency.description}
+            </p>
+            <div className="mt-2 flex items-center gap-1">
+              <span className="text-[10px] font-semibold text-[#007600] bg-[#007600]/5 px-1.5 py-0.5 rounded">
+                ⚡ Instant
+              </span>
             </div>
           </Link>
         ))}
