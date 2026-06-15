@@ -32,3 +32,29 @@ export function openRazorpayCheckout(options: RazorpayOptions): void {
 export function isRazorpayLoaded(): boolean {
   return typeof window !== 'undefined' && !!window.Razorpay;
 }
+
+/**
+ * Wait for Razorpay SDK to load (up to 5 seconds).
+ * Returns true if loaded, false if timed out.
+ */
+export function waitForRazorpay(): Promise<boolean> {
+  return new Promise((resolve) => {
+    if (isRazorpayLoaded()) {
+      resolve(true);
+      return;
+    }
+
+    let attempts = 0;
+    const interval = setInterval(() => {
+      attempts++;
+      if (isRazorpayLoaded()) {
+        clearInterval(interval);
+        resolve(true);
+      } else if (attempts >= 25) {
+        // 5 seconds (25 * 200ms)
+        clearInterval(interval);
+        resolve(false);
+      }
+    }, 200);
+  });
+}

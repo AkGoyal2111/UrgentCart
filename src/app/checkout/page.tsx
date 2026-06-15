@@ -12,7 +12,7 @@ import { useAuthStore } from '@/stores/authStore';
 import { Order } from '@/types';
 import { trackEvent } from '@/services/analytics';
 import { apiPost } from '@/lib/api';
-import { openRazorpayCheckout, isRazorpayLoaded } from '@/lib/razorpay';
+import { openRazorpayCheckout, waitForRazorpay } from '@/lib/razorpay';
 
 type PaymentState = 'idle' | 'processing' | 'success';
 
@@ -88,9 +88,11 @@ export default function CheckoutPage() {
         key_id: string;
       }>('/api/payments/create-order', { orderId: order.id, amount: orderTotal });
 
-      // Check if Razorpay SDK is loaded (real mode)
+      // Wait for Razorpay SDK to load if needed
+      const razorpayReady = await waitForRazorpay();
+
       if (
-        isRazorpayLoaded() &&
+        razorpayReady &&
         paymentData.key_id &&
         !paymentData.key_id.startsWith('rzp_mock')
       ) {
