@@ -65,7 +65,8 @@ export default function LoginPage() {
         data.refreshToken
       );
 
-      router.push('/');
+      // Use window.location for reliable redirect after login
+      window.location.href = '/';
     } catch (err: unknown) {
       const apiErr = err as Error & { details?: FieldError[]; code?: string };
       if (apiErr.code === 'VALIDATION_ERROR' && apiErr.details) {
@@ -131,7 +132,7 @@ export default function LoginPage() {
         data.refreshToken
       );
 
-      router.push('/');
+      window.location.href = '/';
     } catch (err: unknown) {
       const apiErr = err as Error;
       setError(apiErr.message || 'Demo login failed.');

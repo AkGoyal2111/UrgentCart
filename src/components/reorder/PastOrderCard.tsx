@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Order } from '@/types';
 import { useCartStore } from '@/stores/cartStore';
+import { useOrderStore } from '@/stores/orderStore';
 import { getRelativeTime } from '@/lib/utils';
 import { trackEvent } from '@/services/analytics';
 
@@ -18,6 +18,9 @@ function getSituationEmoji(label: string): string {
   if (lower.includes('fever') || lower.includes('cold')) return '🤒';
   if (lower.includes('baby')) return '👶';
   if (lower.includes('trip') || lower.includes('travel')) return '🧳';
+  if (lower.includes('grocery')) return '🛒';
+  if (lower.includes('snack')) return '🍿';
+  if (lower.includes('morning')) return '☀️';
   return '📦';
 }
 
@@ -28,7 +31,8 @@ interface PastOrderCardProps {
 export function PastOrderCard({ order }: PastOrderCardProps) {
   const router = useRouter();
   const setPendingCart = useCartStore((state) => state.setPendingCart);
-  const [reorderCount, setReorderCount] = useState(0);
+  const incrementReorder = useOrderStore((state) => state.incrementReorder);
+  const reorderCount = useOrderStore((state) => state.getReorderCount(order.id));
 
   const emoji = getSituationEmoji(order.situationLabel);
   const itemCount = order.items.length;
@@ -42,9 +46,8 @@ export function PastOrderCard({ order }: PastOrderCardProps) {
   const relativeDate = getRelativeTime(order.date);
 
   function handleReorder() {
-    const newCount = reorderCount + 1;
-    setReorderCount(newCount);
-    trackEvent('reorder_used', { orderId: order.id, itemCount: order.items.length, reorderCount: newCount });
+    incrementReorder(order.id);
+    trackEvent('reorder_used', { orderId: order.id, itemCount: order.items.length });
     setPendingCart(order.items, order.situationLabel);
     router.push('/cart');
   }

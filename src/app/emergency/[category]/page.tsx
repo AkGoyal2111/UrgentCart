@@ -20,7 +20,7 @@ export default function EmergencyCategoryPage({
   const { category } = use(params);
   const router = useRouter();
 
-  const setCartFromAI = useCartStore((state) => state.setCartFromAI);
+  const setPendingCart = useCartStore((state) => state.setPendingCart);
   const addOrder = useOrderStore((state) => state.addOrder);
 
   const categoryData = getCategoryById(category);
@@ -70,7 +70,7 @@ export default function EmergencyCategoryPage({
   };
 
   const handleEditCart = () => {
-    setCartFromAI(items, `Emergency: ${categoryData.title}`);
+    setPendingCart(items, `Emergency: ${categoryData.title}`);
     router.push('/cart');
   };
 

@@ -51,16 +51,14 @@ export function localSignup(username?: string, email?: string, name?: string): {
 }
 
 /**
- * Mock login for local development. Only allows registered users.
+ * Mock login for local development. Accepts any username in local mode.
+ * In production (cognito mode), real auth handles this.
  */
 export function localLogin(username: string): TokenResponse {
   const userId = username || DEFAULT_USER_ID;
 
-  // Check if user has signed up
-  if (!registeredUsers.has(userId)) {
-    throw new Error('USER_NOT_FOUND');
-  }
-
+  // In local mode, always allow login (no registration check)
+  // Real auth validation happens via Cognito when AUTH_MODE=cognito
   return {
     accessToken: `dev-token-${userId}`,
     idToken: `dev-id-token-${userId}`,
