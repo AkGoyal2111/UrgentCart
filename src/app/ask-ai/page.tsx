@@ -158,16 +158,17 @@ export default function AskAIPage() {
   }
 
   return (
-    <div className="flex flex-col h-[calc(100vh-7.5rem)]">
-      {/* Clear Cart button when cart has items */}
+    <div className="flex flex-col h-[calc(100vh-8.5rem)] bg-[#eaeded]">
+      {/* Top bar with clear cart */}
       {hasCart && (
-        <div className="flex justify-end px-4 py-2 border-b border-gray-100">
+        <div className="flex justify-between items-center px-4 py-2 bg-white border-b border-[#d5d9d9]">
+          <span className="text-xs text-[#565959]">{cartItems.length} items in cart</span>
           <button
             onClick={handleClearCart}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-full transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#cc0c39] border border-[#cc0c39]/30 bg-white hover:bg-red-50 rounded-md transition-colors"
           >
             <Trash2 className="h-3.5 w-3.5" />
-            Clear Cart
+            Clear Cart & Start Fresh
           </button>
         </div>
       )}

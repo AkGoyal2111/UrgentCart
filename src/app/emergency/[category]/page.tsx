@@ -8,8 +8,6 @@ import { Button } from '@/components/ui/button';
 import { EmergencyCartView } from '@/components/emergency/EmergencyCartView';
 import { getEmergencyCart, getCategoryById } from '@/services/emergencyPresets';
 import { useCartStore } from '@/stores/cartStore';
-import { useOrderStore } from '@/stores/orderStore';
-import { Order } from '@/types';
 import { trackEvent } from '@/services/analytics';
 
 export default function EmergencyCategoryPage({
@@ -21,7 +19,6 @@ export default function EmergencyCategoryPage({
   const router = useRouter();
 
   const setPendingCart = useCartStore((state) => state.setPendingCart);
-  const addOrder = useOrderStore((state) => state.addOrder);
 
   const categoryData = getCategoryById(category);
   const items = getEmergencyCart(category);
@@ -50,23 +47,9 @@ export default function EmergencyCategoryPage({
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleOrderNow = () => {
-    const order: Order = {
-      id: `ORD-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
-      items: [...items],
-      situationLabel: `Emergency: ${categoryData.title}`,
-      total: total + 30, // delivery fee
-      date: new Date().toISOString(),
-      status: 'placed',
-    };
-
-    trackEvent('emergency_ordered', {
-      category: categoryData.title,
-      itemCount: items.length,
-      total: total + 30,
-    });
-
-    addOrder(order);
-    router.push('/order-success');
+    // Set cart items and go through proper checkout (with Razorpay)
+    useCartStore.getState().setCartFromAI(items, `Emergency: ${categoryData.title}`);
+    router.push('/checkout');
   };
 
   const handleEditCart = () => {

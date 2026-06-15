@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { RefreshCw } from 'lucide-react';
 import { useOrderStore } from '@/stores/orderStore';
 import { useCartStore } from '@/stores/cartStore';
@@ -8,9 +8,8 @@ import { CartItem } from '@/types';
 
 export function ReplenishmentBanner() {
   const pastOrders = useOrderStore((state) => state.pastOrders);
-  const reorderCounts = useOrderStore((state) => state.reorderCounts);
-  const incrementReorder = useOrderStore((state) => state.incrementReorder);
   const addItem = useCartStore((state) => state.addItem);
+  const [counts, setCounts] = useState<Record<string, number>>({});
 
   const replenishmentItems = useMemo(() => {
     if (pastOrders.length < 3) return [];
@@ -38,7 +37,7 @@ export function ReplenishmentBanner() {
 
   function handleReorder(item: CartItem) {
     addItem({ ...item, quantity: 1, reason: 'Replenishment suggestion' });
-    incrementReorder(`item_${item.id}`);
+    setCounts((prev) => ({ ...prev, [item.id]: (prev[item.id] || 0) + 1 }));
   }
 
   return (
@@ -50,7 +49,7 @@ export function ReplenishmentBanner() {
 
       <div className="flex gap-3 overflow-x-auto pb-1 no-scrollbar">
         {replenishmentItems.map((item) => {
-          const count = reorderCounts[`item_${item.id}`] || 0;
+          const count = counts[item.id] || 0;
           return (
             <div
               key={item.id}
@@ -67,12 +66,7 @@ export function ReplenishmentBanner() {
                 onClick={() => handleReorder(item)}
                 className="w-full flex items-center justify-center gap-1 py-1.5 text-xs font-medium rounded-md btn-amazon-yellow transition-colors"
               >
-                Add to Cart
-                {count > 0 && (
-                  <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#131921] text-[9px] font-bold text-white">
-                    {count}
-                  </span>
-                )}
+                {count > 0 ? `Added (${count})` : 'Add to Cart'}
               </button>
             </div>
           );
