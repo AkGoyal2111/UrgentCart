@@ -70,7 +70,6 @@ export default function AskAIPage() {
   const clearConversation = useConversationStore((state) => state.clearConversation);
 
   const cartItems = useCartStore((state) => state.items);
-  const setCartFromAI = useCartStore((state) => state.setCartFromAI);
   const addItem = useCartStore((state) => state.addItem);
   const removeItem = useCartStore((state) => state.removeItem);
   const clearCart = useCartStore((state) => state.clearCart);
@@ -90,13 +89,9 @@ export default function AskAIPage() {
         const isNewSituation = detectNewSituation(cleanText);
 
         if (!hasCart || isNewSituation) {
-          // Generate a fresh cart (either first message or a completely new situation)
-          if (hasCart && isNewSituation) {
-            clearCart();
-          }
+          // Generate a cart suggestion (don't add to cart yet — user decides)
           trackEvent('situation_submitted', { situation: cleanText, source: 'ask-ai' });
           const result = await generateCart(cleanText);
-          setCartFromAI(result.items, result.situationLabel);
           trackEvent('cart_generated', {
             situationLabel: result.situationLabel,
             itemCount: result.items.length,
@@ -109,7 +104,6 @@ export default function AskAIPage() {
             estimatedCost: result.estimatedCost,
             estimatedDelivery: result.estimatedDelivery,
           });
-          // Update suggestions based on generated cart
           updateSuggestionsFromCart(result.items);
         } else {
           // Subsequent messages: modify cart
@@ -136,7 +130,6 @@ export default function AskAIPage() {
           });
 
           addAIResponse(result.reply, updatedItems);
-          // Update suggestions based on new cart state
           updateSuggestionsFromCart(updatedItems);
         }
       } catch {
@@ -145,7 +138,7 @@ export default function AskAIPage() {
         setAITyping(false);
       }
     },
-    [hasCart, cartItems, addUserMessage, setAITyping, setCartFromAI, clearCart, addAIResponse, addItem, removeItem, updateSuggestionsFromCart]
+    [hasCart, cartItems, addUserMessage, setAITyping, clearCart, addAIResponse, addItem, removeItem, updateSuggestionsFromCart]
   );
 
   // Show initial suggestions when no cart, show contextual suggestions when cart exists
